@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <title>Great Number Game</title>
+</head>
+<body>
+
+
+    <div class="wrapper bg-light">
+        <h1 class="display-3 bg-success">Welcome to the Great Number Game</h1>
+        <h3>I'm thinking of a number between 1 and 100</h3>
+        <h3>Take a guess!</h3>
+        
+        {% if session['guess'] < session['randomNum'] and session['guess'] != -1 %}
+
+            <div class="bg-danger m-5 lowbox">
+                <h1>Too Low!</h1>
+            </div>
+
+
+        {% elif session['guess'] > session['randomNum'] %}
+
+            <div class="bg-danger m-5 lowbox">
+                <h1>Too High!</h1>
+            </div>
+
+        {% elif session['guess'] == session['randomNum'] %}
+
+            <div class="bg-success m-5 lowbox">
+                <h1>Perfect!</h1>
+                <a class="btn btn-success" href="http://localhost:5000/destroy_session">Play Again</a>
+            </div>
+        {% endif %}
+    
+    
+        <form action='/guess' method='post'>
+            <label for="guessedNum">Your Guess:</label>
+            <input type='number' name='guessedNum' placeholder='1-100'>
+            <input class="btn btn-success" type="submit">
+        
+        </form>
+
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+
