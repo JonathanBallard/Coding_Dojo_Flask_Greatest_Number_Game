@@ -16,6 +16,10 @@ def index():
         session['randomNum'] = random.randint(1,100)
         # print('Number Created: ' + str(session['randomNum']))
     
+    if 'numTries' in session:
+        pass
+    else:
+        session['numTries'] = 0
 
     if 'guess' in session:
         pass
@@ -39,6 +43,11 @@ def destroy():
 
 @app.route('/guess', methods=['POST'])
 def guess():
+
+    if 'numTries' in session:
+        session['numTries'] += 1
+    else:
+        session['numTries'] = 0
     session['guess'] = int(request.form['guessedNum'])
     session['randomNum'] = int(session['randomNum'])
     return redirect("/")
